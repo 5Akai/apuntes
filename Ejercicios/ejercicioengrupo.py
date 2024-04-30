@@ -5,7 +5,7 @@
 # Con el último encuestado mostra el número de encuentas y la puntuación media
 
 esUltimo = False
-totalEnc = 0
+totalEnc = 0 ## Al final lo voy a usar para hacer los càlculos, ya que la primera encuesta al estar vacía da un valor nulo con el que no se puede 
 
 puntTotal = 0
 listaPunt = []
