@@ -36,4 +36,16 @@ print(f"Func 1: {func1(numeros)}")
 
 print(f"Func 2: {func2(numeros)}")
 
-print(f"Lambda: {list(map(lambda x: x * 5, numeros))}")
+print(f"Lambda: {list(map(lambda x: x * 5, numeros))}") # Map también retorna un generador
+
+def func3(lista):
+
+    for i in lista:
+
+        yield i * 5 ##Genera un generador con un conjunto de datos, por eso imprime eso
+print(f"Func 3: {func3(numeros)}")
+print(f"Func 3 To-List: {list(func3(numeros))}")
+
+
+# Utilización de los generadores 
+
