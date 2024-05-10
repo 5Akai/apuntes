@@ -16,16 +16,9 @@ tiempo = time.time()
 
 #Listado de clientes de USA y el número de pedidos de cada cliente
 
-cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA'")
-
-for row in cursor.fetchall():
-    cursor2 = connection.cursor()
-    cursor2.execute(f"SELECT COUNT(*) FROM dbo.Orders WHERE CustomerID = '{row['CustomerID']}'")
-    print(f"{row['CustomerID']}# {row['CompanyName']} -> {cursor2.fetchone()} pedidos")
 
 
 
 #DEBUG
 print(f"--- Tiempo de Ejecución ----")
 print(f"%s Segundos" % (time.time() - tiempo))
-
