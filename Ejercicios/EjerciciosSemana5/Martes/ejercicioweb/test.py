@@ -1,26 +1,22 @@
-from flask import Flask, render_template, render_template_string
-##Creamos una instancia de flask
+from flask import Flask, render_template,render_template_string
 
-app = Flask(__name__)
+#creamos una instancia de flask
+app=Flask(__name__, template_folder="template")
 
 
-
-##Rutas de la aplicación Flask
-#http://localhost:5000/
+#ruta de la aplicacion
 @app.route("/")
 def index():
-    return f'<h1 style="color: blue;">Taki Taki!</h1>'
+    return f"<h1>hola mundo </h1>"
 
-#http://localhost:5000/rumba/
-@app.route("/rumba/")
-def saludo():
-    return f'<h1 style="color: blue;">Taki Taki Rumba!</h1>'
+@app.route("/saludo/<nombre>")
+def saludo(nombre):
+    return f"<h1> hola {nombre} </h1>"
 
-#http://localhost:5000/template/<nombre>
-@app.route("/template/<nombre>/")
-def indexdos():
-    return render_template("demotemplate.html, nombreEnPlantilla=nombre")
+#ruta de templates
+@app.route("/template/<nombre>")
+def template(nombre):
+    return render_template("demotemplate.html",nombrePlantilla=nombre)
 
-
-# Ejecutar la aplicación de flask en el servidor web integrado
+#ejecutamos la aplicacion 
 app.run()
