@@ -1,0 +1,10 @@
+HTML -> Enviamos y recibimos documentos
+
+DOCUMENTOS -> cabecera del mensaje
+              cuerpo del mensaje
+
+CABECERA DEL MENSAJE -> una colección de clave : valor (Diccionarios en python)
+                        StatusCode: 200
+
+CUERPO DEL MENSAJE -> secuencia de información normalmente en json y tambien otros como XML o css
+
