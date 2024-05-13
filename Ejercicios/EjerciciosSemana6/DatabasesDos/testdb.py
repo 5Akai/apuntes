@@ -41,6 +41,42 @@ if(numTablas == 0):
     """
     cursor.execute(command)
 
+#   Eliminar registros mediante DELETE
+
+command = "DELETE FROM Alumnos WHERE id = '004'"
+cursor.execute(command)
+connection.commit()
+print(f"{cursor.rowcount} registros Eliminados")
+
+
+
+
+
+
+
+# Actualizamos registros mediante UPDATE
+command = "UPDATE Alumnos SET apellidos = 'Cabeza', curso = '2C' WHERE id = '000'"
+cursor.execute(command)
+connection.commit()
+print(f"{cursor.rowcount} registros Actualizados")
+
+
+# Consultamos datos mediante SELECT
+command = "SELECT * FROM Alumnos WHERE curso = '2B' ORDER BY apellidos, nombre"
+command = "SELECT * FROM Alumnos"
+
+cursor.execute(command)
+
+for row in cursor.fetchall():
+    print(f"{row[0]}# {row[1]} {row[2]}")
+    print(row)
+
+
+
+##NOS VAMO
+quit()
+##NOS VAMO LO DE ABAJO NO SE EJECUTA, PA Q SE EJECUTE QUITA EL Quit 
+
 
 
 # Insertamos registros mediante INSERT
