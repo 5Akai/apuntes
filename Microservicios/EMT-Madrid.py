@@ -1,6 +1,26 @@
 ## Consultar tiempo de llegada del autobus
 
-import requests, pprint, json
+import requests, pprint, json, os
+
+def InfoBus(item):
+    data = {}
+    data["linea"] = item["line"]
+    data["distancia"] = item["DistanceBus"]
+
+    if (item["estimateArrive"] < 60):
+        data["tiempo"] = "está en la parada."
+    else:
+        time = item["estimateArrive"] / 60
+        if(time >= 20):
+            data["tiempo"] = "Llegará en 20 minutos o más"
+        else:
+            data["tiempo"] = f"Llegará aproximadamente en {time:1.0f} minutos.."
+
+    data["mensaje"] = f"el {data["linea"]} llegará en {data["tiempo"]}. {data["distancia"]} metros. "
+
+    return(data)
+
+
 
 #Obtener token de acceso al API
 
@@ -52,7 +72,10 @@ try:
     #OTRA OPCIÓN#response2 = requests.post(endpoint2, headers=headers2, data=json.dumps(data2))
 
     if (response2.status_code == 200):
-        print(response2.text)
+
+        for item in response2.json()["data"][0]["Arrive"]:
+            print(InfoBus(item)["mensaje"])
+
     else:
         print(f"Error: ({response2.status_code}): {response2.reason}")
 
@@ -60,5 +83,9 @@ try:
 
 
 
+
 except Exception as e:
     print(f"Error: {e}")
+
+input("presione cualquier tecla para salir: ")
+os.system('clear')
