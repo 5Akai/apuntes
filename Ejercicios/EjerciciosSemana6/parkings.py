@@ -2,27 +2,27 @@
 import requests, pprint, json, os
 
 
-def InfoBic(item):
+def InfoPark(item):
     data = {}
-    data["estación"] = item["name"]
-    data["ocupadas"] = item["free_bases"]
-    data["libres"] = item["dock_bikes"]
+    data["nombre"] = item["name"]
     data["calle"] = item["address"]
-    
+    data["estaLibre"] = ""
+    if item["freeParking"] == None: data["estaLibre"] = "Ocupado"
+    else: data["estaLibre"] = f"Libre, {item["freeParking"]} plazas libres."
 
-
-    data["mensaje"] = f"Estación: {data['estación']}\n{data['ocupadas']} bicis ocupadas, {data['libres']} Bicis libres\n\n"   
+    data["mensaje"] = f"[Nommbre]: {data['nombre']}\n·{data['estaLibre']}\n\n"   
 
 
 
     return(data)
 
 
+
 urls = {
  
    "base": "https://openapi.emtmadrid.es/v2/",
     "login": "mobilitylabs/user/login/",
-    "free_Bikes": "transport/bicimad/stations/"
+    "Parking": "citymad/places/parkings/availability/"
 }
 
 
@@ -46,7 +46,7 @@ else:
     quit()
 
 
-endpoint2 = urls["base"] + urls["free_Bikes"]
+endpoint2 = urls["base"] + urls["Parking"]
 headers2 = {"accessToken": token}
 
 data2 = {
@@ -72,12 +72,15 @@ if (response2.status_code == 200):
 
     for item in response2.json()["data"]:
 
-        temp = InfoBic(item)
+        
+        temp = InfoPark(item)
         print(temp["mensaje"])
+        if temp["estaLibre"] != None:
+            total = total + 1
 
 
-        total = total + int(temp["libres"])
-    print(f"Total de bicis en madrid: {total}")
+        
+    print(f"Total de parkings libres: {total}")
 else:
     print(f"Error: ({response2.status_code}): {response2.reason}")
 
