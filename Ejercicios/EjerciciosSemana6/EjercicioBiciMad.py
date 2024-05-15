@@ -1,6 +1,20 @@
 
 import requests, pprint, json, os
 
+
+def InfoBic(item):
+    data = {}
+    data["estación"] = item["name"]
+    data["ocupadas"] = item["free_bases"]
+    data["libres"] = item["dock_bikes"]
+    data["calle"] = item["address"]
+    data["total"] = item["free_bases"] + item["dock_bikes"]
+
+    data["mensaje"] = f"Estación: {data['estación']}\n{data['ocupadas']} bicis ocupadas, {data['libres']} estaciones libres, total: {data['total']}"   
+
+    return(data)
+
+
 urls = {
  
    "base": "https://openapi.emtmadrid.es/v2/",
@@ -10,7 +24,7 @@ urls = {
 
 
 token = ""
-estación = input("Número de la estación: ")
+#estación = input("Número de la estación: ")
 
 try:
     endpoint = urls["base"] + urls["login"]
@@ -48,9 +62,15 @@ try:
     }
 
 
-    response2 = requests.post(endpoint2, headers=headers2, json=data2)
+    response2 = requests.get(endpoint2, headers=headers2, json=data2)
 
+    if (response2.status_code == 200):
 
+        for item in response2.json()["data"]:
+            print(InfoBic(item)["mensaje"])
+
+    else:
+        print(f"Error: ({response2.status_code}): {response2.reason}")
 
 
 
