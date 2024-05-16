@@ -86,6 +86,53 @@ def products_post():
         cursor.execute(command)
         connection.commit()
 
+        cursor.execute("SELECT SCOPE_IDENTITY() AS Identity")
+        insert_product = cursor.fetchone()["Identity"]
+
+        print(new_product)
+        print("")
+        print(insert_product)
+
+        if(cursor.rowcount == 1):
+            return jsonify(new_product), 201
+        else:
+            return jsonify({"Message": "Producto no insertado."}), 400
+    except Exception as err:
+        return jsonify(err), 500
+
+
+@app.route("/api/products/<id>", methods=["PUT"])
+def products_post(id):
+    try:
+        product = request.json
+
+        if(product["ProductID"] != id):
+            return jsonify({"Message": "Identificador del producto no válido."}), 400
+        
+        
+        connection = pymssql.connect(
+            server="hostdb2-eoi.database.windows.net",
+            port="1433",
+            user="Administrador",
+            password="azurePa$$w0rd",
+            database="Northwind")
+
+        cursor = connection.cursor(as_dict=True)
+
+        command = f"""
+
+        """
+
+        cursor.execute(command)
+        connection.commit()
+
+        cursor.execute("SELECT SCOPE_IDENTITY() AS Identity")
+        insert_product = cursor.fetchone()["Identity"]
+
+        print(new_product)
+        print("")
+        print(insert_product)
+
         if(cursor.rowcount == 1):
             return jsonify(new_product), 201
         else:
