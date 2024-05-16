@@ -121,22 +121,35 @@ def products_post(id):
 
         command = f"""
 
+            UPDATE dbo.Products SET 
+
+                ProductName = '{product["ProductName"]}',
+
+                CategoryID = {product["CategoryID"]},
+
+                Discontinued = '{product["Discontinued"]}',
+
+                SupplierID = {product["SupplierID"]},
+
+                ReorderLevel = {product["ReorderLevel"]},
+
+                QuantityPerUnit = '{product["QuantityPerUnit"]}',
+
+                UnitsInStock = {product["UnitsInStock"]},
+
+                UnitsOnOrder = {product["UnitsOnOrder"]},
+
+                UnitPrice = {product["UnitPrice"]} WHERE ProductID = {product["ProductID"]}
+
         """
 
         cursor.execute(command)
         connection.commit()
 
-        cursor.execute("SELECT SCOPE_IDENTITY() AS Identity")
-        insert_product = cursor.fetchone()["Identity"]
-
-        print(new_product)
-        print("")
-        print(insert_product)
-
         if(cursor.rowcount == 1):
-            return jsonify(new_product), 201
+            return jsonify(), 201
         else:
-            return jsonify({"Message": "Producto no insertado."}), 400
+            return jsonify({"Message": "Producto no Actualizado."}), 400
     except Exception as err:
         return jsonify(err), 500
 
