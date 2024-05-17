@@ -22,12 +22,12 @@ def get_customer(id):
     return jsonify(Get_Customer(id)), 200
 
 @app.route("/api/orders", methods=["GET"])
-def Get_Orders_List():
+def Get_Orders_list():
     # return Response(Get_Customers_List(), status=200, content_type="application/json")
     return jsonify(Get_Orders_List()), 200
 
 @app.route("/api/orders/<id>", methods=["GET"])
-def Get_Orders(id):
+def get_Orders(id):
     # return Response(Get_Customer(id), status=200, content_type="application/json")
     return jsonify(Get_Orders(id)), 200
 
