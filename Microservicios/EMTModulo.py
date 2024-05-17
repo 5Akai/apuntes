@@ -1,4 +1,5 @@
 import requests, pprint, json, os
+from XMLModulo import *
 
 urls = {
     "base": "https://openapi.emtmadrid.es/v2/",
